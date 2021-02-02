@@ -1,16 +1,15 @@
-// const { ipcMain } = require('electron');
 import { ipcMain } from 'electron';
 
-ipcMain.on('process-subtitles', (event, paths) => {
-	console.log('paths ->', paths);
+import {pathsToRows} from "./pathToRows";
+import {prepareData} from "./prepareData";
+import {groupWords} from "./groupWords";
 
-	event.reply('process-subtitles', [
-		{name: 'i', amount: 1234},
-		{name: 'you', amount: 900},
-		{name: 'he', amount: 853},
-		{name: 'she', amount: 853},
-		{name: 'our', amount: 133},
-		{name: 'house', amount: 33},
-	]);
+ipcMain.on('process-subtitles', (event, paths) => {
+
+	pathsToRows(paths)
+		.then(rows => prepareData(rows))
+		.then(words => groupWords(words))
+		.then(groupedWords => event.reply('process-subtitles', groupedWords))
+		.catch(err => console.log('Error ->', err));
 
 })

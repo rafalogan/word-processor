@@ -29,8 +29,10 @@ export default {
 	},
 	methods: {
 		processSubtitle() {
-			ipcRenderer.send('process-subtitles', this.files);
-			ipcRenderer.on('process-subtitles',  async (event, res) => this.groupedWords = await res);
+			const paths = this.files.map(file => file.path);
+
+			ipcRenderer.send('process-subtitles', paths);
+			ipcRenderer.on('process-subtitles',   (event, res) => this.groupedWords = res);
 		}
 	}
 }
