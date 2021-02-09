@@ -22,5 +22,8 @@ npm run build
 npm run lint
 ```
 
+you can use the subtitles on ``dataexemple`` to first test of the application.
+you can use the subtitles on ``dataexemple`` to first test of the application.
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
